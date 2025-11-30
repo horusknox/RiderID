@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const IDDisplay = () => {
   const [searchParams] = useSearchParams();
+  const [showMedicalHistory, setShowMedicalHistory] = useState(false);
 
   // Get parameters from URL with fallbacks
   const emergencyNumber = searchParams.get('emergency') || '';
@@ -11,6 +12,7 @@ const IDDisplay = () => {
   const phone = searchParams.get('phone') || '';
   const instaID = searchParams.get('insta') || '';
   const address = searchParams.get('address') || '';
+  const medicalHistory = searchParams.get('medical') || '';
 
   // Decode URL parameters
   const decodedEmergency = decodeURIComponent(emergencyNumber);
@@ -19,6 +21,7 @@ const IDDisplay = () => {
   const decodedPhone = decodeURIComponent(phone);
   const decodedInsta = decodeURIComponent(instaID);
   const decodedAddress = decodeURIComponent(address);
+  const decodedMedicalHistory = decodeURIComponent(medicalHistory);
 
   const handleCall = (number) => {
     // Clean the number and make callable
@@ -31,6 +34,10 @@ const IDDisplay = () => {
       const cleanUsername = username.replace('@', '').trim();
       window.open(`https://instagram.com/${cleanUsername}`, '_blank');
     }
+  };
+
+  const toggleMedicalHistory = () => {
+    setShowMedicalHistory(!showMedicalHistory);
   };
 
   // Check if we have valid data
@@ -126,6 +133,35 @@ const IDDisplay = () => {
               <span className="detail-value address-text">
                 📍 {decodedAddress}
               </span>
+            </div>
+          )}
+
+          {/* Medical History Section */}
+          {decodedMedicalHistory && decodedMedicalHistory.trim() !== '' && (
+            <div className="detail-item medical-history-item">
+              <span className="detail-label">Medical History</span>
+              <div className="medical-history-content">
+                {!showMedicalHistory ? (
+                  <button 
+                    className="medical-history-toggle"
+                    onClick={toggleMedicalHistory}
+                  >
+                    🩺 Show Medical History
+                  </button>
+                ) : (
+                  <div className="medical-history-display">
+                    <div className="medical-history-text">
+                      {decodedMedicalHistory}
+                    </div>
+                    <button 
+                      className="medical-history-hide"
+                      onClick={toggleMedicalHistory}
+                    >
+                      ▲ Hide Medical History
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>

@@ -493,3 +493,83 @@ input:focus {
 .form-group textarea::placeholder {
   color: #a0aec0;
 }
+
+/* Medical History Styles */
+.medical-history-item {
+  grid-column: 1 / -1;
+}
+
+.medical-history-toggle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  text-align: center;
+}
+
+.medical-history-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.medical-history-display {
+  background-color: rgba(45, 55, 72, 0.8);
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.medical-history-text {
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.medical-history-hide {
+  background-color: #4a5568;
+  color: #e2e8f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.medical-history-hide:hover {
+  background-color: #5a6575;
+}
+
+/* Form textarea styling for medical history */
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  background-color: #2d3748;
+  color: #e2e8f0;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.3s ease;
+}
+
+.form-group textarea:focus {
+  outline: none;
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.form-group textarea::placeholder {
+  color: #a0aec0;
+}

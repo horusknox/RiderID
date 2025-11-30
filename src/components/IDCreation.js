@@ -8,7 +8,8 @@ const IDCreation = () => {
     name: '',
     phone: '',
     instaID: '',
-    address: ''
+    address: '',
+    medicalHistory: ''
   });
   const [qrCode, setQrCode] = useState(null);
   const [qrUrl, setQrUrl] = useState('');
@@ -22,7 +23,7 @@ const IDCreation = () => {
   };
 
   const generateQRCode = () => {
-    // Validate all fields except Instagram and Address (optional)
+    // Validate all fields except Instagram, Address, and Medical History (optional)
     const requiredFields = ['emergencyNumber', 'bloodGroup', 'name', 'phone'];
     for (let key of requiredFields) {
       if (!formData[key].trim()) {
@@ -39,6 +40,7 @@ const IDCreation = () => {
     params.append('phone', formData.phone);
     params.append('insta', formData.instaID);
     params.append('address', formData.address);
+    params.append('medical', formData.medicalHistory);
 
     const idUrl = `${window.location.origin}/RiderID/#/id?${params.toString()}`;
     setQrUrl(idUrl);
@@ -192,6 +194,21 @@ const IDCreation = () => {
               placeholder="Your home address (optional)"
               rows="3"
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="medicalHistory">Medical History</label>
+            <textarea
+              id="medicalHistory"
+              name="medicalHistory"
+              value={formData.medicalHistory}
+              onChange={handleChange}
+              placeholder="Any medical conditions, allergies, medications, or important health information (optional)"
+              rows="4"
+            />
+            <p style={{ fontSize: '0.8rem', color: '#a0aec0', marginTop: '5px' }}>
+              This information will be hidden by default and only shown when explicitly requested
+            </p>
           </div>
 
           <button className="btn" onClick={generateQRCode}>

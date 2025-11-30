@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/RiderID/static/css/main.914579d5.css",
-    "main.js": "/RiderID/static/js/main.ce9d4bd4.js",
+    "main.js": "/RiderID/static/js/main.df46888f.js",
     "index.html": "/RiderID/index.html",
     "main.914579d5.css.map": "/RiderID/static/css/main.914579d5.css.map",
-    "main.ce9d4bd4.js.map": "/RiderID/static/js/main.ce9d4bd4.js.map"
+    "main.df46888f.js.map": "/RiderID/static/js/main.df46888f.js.map"
   },
   "entrypoints": [
     "static/css/main.914579d5.css",
-    "static/js/main.ce9d4bd4.js"
+    "static/js/main.df46888f.js"
   ]
 }

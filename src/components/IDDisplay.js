@@ -10,6 +10,7 @@ const IDDisplay = () => {
   const name = searchParams.get('name') || 'Unknown';
   const phone = searchParams.get('phone') || '';
   const instaID = searchParams.get('insta') || '';
+  const address = searchParams.get('address') || '';
 
   // Decode URL parameters
   const decodedEmergency = decodeURIComponent(emergencyNumber);
@@ -17,6 +18,7 @@ const IDDisplay = () => {
   const decodedName = decodeURIComponent(name);
   const decodedPhone = decodeURIComponent(phone);
   const decodedInsta = decodeURIComponent(instaID);
+  const decodedAddress = decodeURIComponent(address);
 
   const handleCall = (number) => {
     // Clean the number and make callable
@@ -114,6 +116,15 @@ const IDDisplay = () => {
                 >
                   📷 @{decodedInsta.replace('@', '')}
                 </button>
+              </span>
+            </div>
+          )}
+
+          {decodedAddress && decodedAddress.trim() !== '' && (
+            <div className="detail-item">
+              <span className="detail-label">Address</span>
+              <span className="detail-value address-text">
+                📍 {decodedAddress}
               </span>
             </div>
           )}

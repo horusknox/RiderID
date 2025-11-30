@@ -7,7 +7,8 @@ const IDCreation = () => {
     bloodGroup: '',
     name: '',
     phone: '',
-    instaID: ''
+    instaID: '',
+    address: ''
   });
   const [qrCode, setQrCode] = useState(null);
   const [qrUrl, setQrUrl] = useState('');
@@ -21,7 +22,7 @@ const IDCreation = () => {
   };
 
   const generateQRCode = () => {
-    // Validate all fields except Instagram (optional)
+    // Validate all fields except Instagram and Address (optional)
     const requiredFields = ['emergencyNumber', 'bloodGroup', 'name', 'phone'];
     for (let key of requiredFields) {
       if (!formData[key].trim()) {
@@ -37,6 +38,7 @@ const IDCreation = () => {
     params.append('name', formData.name);
     params.append('phone', formData.phone);
     params.append('insta', formData.instaID);
+    params.append('address', formData.address);
 
     const idUrl = `${window.location.origin}/RiderID/#/id?${params.toString()}`;
     setQrUrl(idUrl);
@@ -177,6 +179,18 @@ const IDCreation = () => {
               value={formData.instaID}
               onChange={handleChange}
               placeholder="Your Instagram username (optional)"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="address">Address</label>
+            <textarea
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="Your home address (optional)"
+              rows="3"
             />
           </div>
 

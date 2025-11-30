@@ -19,16 +19,22 @@ const IDDisplay = () => {
   const decodedInsta = decodeURIComponent(instaID);
 
   const handleCall = (number) => {
-    window.location.href = `tel:${number}`;
+    // Clean the number and make callable
+    const cleanNumber = number.replace(/[^\d+]/g, '');
+    window.location.href = `tel:${cleanNumber}`;
   };
 
   const handleInstagram = (username) => {
-    if (username) {
-      window.open(`https://instagram.com/${username.replace('@', '')}`, '_blank');
+    if (username && username.trim() !== '') {
+      const cleanUsername = username.replace('@', '').trim();
+      window.open(`https://instagram.com/${cleanUsername}`, '_blank');
     }
   };
 
-  if (!decodedName || decodedName === 'Unknown') {
+  // Check if we have valid data
+  const isValidData = decodedName && decodedName !== 'Unknown' && decodedName !== '';
+
+  if (!isValidData) {
     return (
       <div className="container">
         <div className="error">
@@ -45,7 +51,7 @@ const IDDisplay = () => {
       {/* Emergency Header with Big Red Button */}
       <div className="emergency-header">
         <h1>🚨 Rider Emergency ID</h1>
-        {decodedEmergency && (
+        {decodedEmergency && decodedEmergency.trim() !== '' && (
           <button 
             className="emergency-btn"
             onClick={() => handleCall(decodedEmergency)}
@@ -60,7 +66,9 @@ const IDDisplay = () => {
         {/* Blood Group - Prominently Displayed */}
         <div className="blood-group-container">
           <div className="blood-group-label">Blood Group</div>
-          <div className="blood-group">{decodedBloodGroup}</div>
+          <div className="blood-group">
+            {decodedBloodGroup && decodedBloodGroup !== 'Not specified' ? decodedBloodGroup : 'N/A'}
+          </div>
         </div>
 
         {/* Person's Name */}
@@ -68,7 +76,7 @@ const IDDisplay = () => {
 
         {/* Contact Details Grid */}
         <div className="details-grid">
-          {decodedPhone && (
+          {decodedPhone && decodedPhone.trim() !== '' && (
             <div className="detail-item">
               <span className="detail-label">Personal Phone</span>
               <span className="detail-value">
@@ -82,7 +90,7 @@ const IDDisplay = () => {
             </div>
           )}
 
-          {decodedEmergency && (
+          {decodedEmergency && decodedEmergency.trim() !== '' && (
             <div className="detail-item">
               <span className="detail-label">Emergency Contact</span>
               <span className="detail-value">
@@ -96,7 +104,7 @@ const IDDisplay = () => {
             </div>
           )}
 
-          {decodedInsta && (
+          {decodedInsta && decodedInsta.trim() !== '' && (
             <div className="detail-item">
               <span className="detail-label">Instagram Profile</span>
               <span className="detail-value">

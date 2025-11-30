@@ -30,18 +30,17 @@ const IDCreation = () => {
       }
     }
 
-    // Create URL with parameters
-    const params = new URLSearchParams({
-      emergency: encodeURIComponent(formData.emergencyNumber),
-      blood: encodeURIComponent(formData.bloodGroup),
-      name: encodeURIComponent(formData.name),
-      phone: encodeURIComponent(formData.phone),
-      insta: encodeURIComponent(formData.instaID)
-    });
+    // Create URL with parameters - NO encoding here, URLSearchParams will handle it
+    const params = new URLSearchParams();
+    params.append('emergency', formData.emergencyNumber);
+    params.append('blood', formData.bloodGroup);
+    params.append('name', formData.name);
+    params.append('phone', formData.phone);
+    params.append('insta', formData.instaID);
 
-    const idUrl = `${window.location.origin}/id?${params.toString()}`;
+    const idUrl = `${window.location.origin}/RiderID/#/id?${params.toString()}`;
     setQrUrl(idUrl);
-    console.log("ID URL:::", idUrl)
+    console.log("ID URL IS", idUrl);
     // Generate QR Code
     const qrCode = new QRCodeStyling({
       width: 220,
@@ -79,7 +78,7 @@ const IDCreation = () => {
   const downloadQRCode = () => {
     if (qrCode) {
       qrCode.download({ 
-        name: `rider-id-${formData.name}`,
+        name: `rider-id-${formData.name.replace(/\s+/g, '-')}`,
         extension: "png"
       });
     }

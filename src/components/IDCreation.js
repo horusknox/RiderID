@@ -14,6 +14,7 @@ const IDCreation = () => {
   const [qrCode, setQrCode] = useState(null);
   const [qrUrl, setQrUrl] = useState('');
   const qrRef = useRef(null);
+  const qrCodeInstance = useRef(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -45,11 +46,12 @@ const IDCreation = () => {
     const idUrl = `${window.location.origin}/RiderID/#/id?${params.toString()}`;
     setQrUrl(idUrl);
     console.log("ID URL IS", idUrl);
+    
     // Generate QR Code
-    const qrCode = new QRCodeStyling({
-      width: 220,
-      height: 220,
-      type: "svg",
+    const newQrCode = new QRCodeStyling({
+      width: 300,
+      height: 300,
+      type: "png",
       data: idUrl,
       dotsOptions: {
         color: "#e2e8f0",
@@ -65,26 +67,38 @@ const IDCreation = () => {
       cornersDotOptions: {
         color: "#667eea",
         type: "dot"
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 0
       }
     });
 
-    setQrCode(qrCode);
+    qrCodeInstance.current = newQrCode;
+    setQrCode(newQrCode);
     
     // Render QR code after a short delay to ensure state update
     setTimeout(() => {
       if (qrRef.current) {
         qrRef.current.innerHTML = '';
-        qrCode.append(qrRef.current);
+        newQrCode.append(qrRef.current);
       }
     }, 100);
   };
 
   const downloadQRCode = () => {
-    if (qrCode) {
-      qrCode.download({ 
-        name: `rider-id-${formData.name.replace(/\s+/g, '-')}`,
+    if (qrCodeInstance.current) {
+      qrCodeInstance.current.download({ 
+        name: `rider-id-${formData.name.replace(/\s+/g, '-').toLowerCase()}`,
         extension: "png"
       });
+    } else if (qrCode) {
+      qrCode.download({ 
+        name: `rider-id-${formData.name.replace(/\s+/g, '-').toLowerCase()}`,
+        extension: "png"
+      });
+    } else {
+      alert('Please generate a QR code first');
     }
   };
 
